@@ -1,17 +1,24 @@
 package ru.otus.homeworks.spring.spring_framework.domain;
 
+/**
+ * Вопрос, с полной информацией по его обработке
+ */
 public class Question {
 
+    /** номер вопроса в исходном файле, считаем как id */
     private int number;
+    /** текст вопроса */
     private String text;
-    private int correct;
+    /** правильный вариант ответа  */
+    private String correctAnswer;
+    /** Варианты ответов (если подразумевается выбор из предложенных вариантов) */
     private String[] answers;
 
 
-    public Question(int number, String text, int correct, String[] answers) {
+    public Question(int number, String text, String correctAnswer, String[] answers) {
         this.number = number;
         this.text = text;
-        this.correct = correct;
+        this.correctAnswer = correctAnswer;
         this.answers = answers;
     }
 
@@ -24,8 +31,8 @@ public class Question {
         return text;
     }
 
-    public int getCorrect() {
-        return correct;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     public String[] getAnswers() {
