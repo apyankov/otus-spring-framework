@@ -10,5 +10,5 @@ import java.util.List;
 public interface QuestionDao {
 
     /** Выбрать несколько вопросов, случайным образом */
-    public List<Question> findRandomQuestions(int count);
+    List<Question> findRandomQuestions(int count);
 }

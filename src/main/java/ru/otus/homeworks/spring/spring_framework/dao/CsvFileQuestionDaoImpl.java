@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Реализация QuestionDao, использует Csv-файл
@@ -41,6 +42,24 @@ public class CsvFileQuestionDaoImpl implements QuestionDao {
 
     @Override
     public List<Question> findRandomQuestions(int count) {
-        return null;
+        try {
+            List<Question> bank = readQuestions();
+            if(bank.size() < count)
+                throw new IllegalArgumentException("Запрошено вопросов больше, чем есть уникальных: " + count + ", против " + bank.size());
+            else if(bank.size() == count)
+                return bank;
+            else {
+                Random random = new Random();
+                List<Question> result = new ArrayList<>();
+                for(int i=0; i<count; i++){
+                    int number = random.nextInt(bank.size());
+                    result.add(bank.get(number));
+                    bank.remove(number);
+                }
+                return result;
+            }
+        }catch(IOException e){
+            throw new RuntimeException(e);
+        }
     }
 }

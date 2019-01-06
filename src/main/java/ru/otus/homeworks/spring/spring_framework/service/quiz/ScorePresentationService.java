@@ -1,4 +1,4 @@
-package ru.otus.homeworks.spring.spring_framework.service;
+package ru.otus.homeworks.spring.spring_framework.service.quiz;
 
 import ru.otus.homeworks.spring.spring_framework.domain.QuizScore;
 

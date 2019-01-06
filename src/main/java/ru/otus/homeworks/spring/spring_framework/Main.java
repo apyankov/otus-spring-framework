@@ -1,8 +1,8 @@
 package ru.otus.homeworks.spring.spring_framework;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ru.otus.homeworks.spring.spring_framework.domain.Question;
-import ru.otus.homeworks.spring.spring_framework.service.*;
+import ru.otus.homeworks.spring.spring_framework.service.account.AccountService;
+import ru.otus.homeworks.spring.spring_framework.service.quiz.*;
 
 public class Main {
 
