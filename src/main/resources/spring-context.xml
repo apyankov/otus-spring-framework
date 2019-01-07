@@ -4,10 +4,39 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="personDao" class="ru.otus.homeworks.spring.spring_framework.dao.LibraryDaoImpl" >
+    <bean id="questionDao" class="ru.otus.homeworks.spring.spring_framework.dao.CsvFileQuestionDaoImpl" >
+        <constructor-arg name="fileName" value="/questions.csv"/>
+        <constructor-arg name="separator" value=";" />
     </bean>
 
-    <bean class="ru.otus.homeworks.spring.spring_framework.service.LibraryServiceImpl" >
-        <constructor-arg name="libraryDao" ref="personDao" />
+    <bean id="accountService" class="ru.otus.homeworks.spring.spring_framework.service.account.AccountServiceImpl" >
+        <constructor-arg name="userInteractionService" ref="userInteractionService"/>
+    </bean>
+
+    <bean id="userInteractionService" class="ru.otus.homeworks.spring.spring_framework.service.interaction.UserInteractionServiceConsoleImpl" />
+
+    <bean id="quizProducerService" class="ru.otus.homeworks.spring.spring_framework.service.quiz.QuizProducerServiceImpl" >
+        <constructor-arg name="questionDao" ref="questionDao"/>
+        <constructor-arg name="questionsPerQuiz" value="5"/>
+    </bean>
+
+    <bean id="quizProviderService" class="ru.otus.homeworks.spring.spring_framework.service.quiz.QuizProviderServiceImpl" >
+        <constructor-arg name="userInteractionService" ref="userInteractionService"/>
+    </bean>
+
+    <bean id="scoreCalculatorService" class="ru.otus.homeworks.spring.spring_framework.service.quiz.ScoreCalculatorServiceImpl" >
+        <constructor-arg name="passPercent" value="80" />
+    </bean>
+
+    <bean id="scorePresentationService" class="ru.otus.homeworks.spring.spring_framework.service.quiz.ScorePresentationServiceImpl" >
+        <constructor-arg name="userInteractionService" ref="userInteractionService"/>
+    </bean>
+
+    <bean id="quizLifecycleService" class="ru.otus.homeworks.spring.spring_framework.service.quiz.QuizLifecycleServiceImpl" >
+        <constructor-arg name="accountService" ref="accountService"/>
+        <constructor-arg name="quizProducerService" ref="quizProducerService"/>
+        <constructor-arg name="quizProviderService" ref="quizProviderService"/>
+        <constructor-arg name="scoreCalculatorService" ref="scoreCalculatorService"/>
+        <constructor-arg name="scorePresentationService" ref="scorePresentationService"/>
     </bean>
 </beans>
