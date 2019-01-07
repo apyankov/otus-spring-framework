@@ -17,6 +17,10 @@ public class ScoreCalculatorServiceImpl implements ScoreCalculatorService {
         this.passPercent = passPercent;
     }
 
+    /** функция: сколько нужно правильных ответов, чтобы пройти тест из count вопросов, если проходной процент равен passPercent*/
+    public static int passScoreByPercent(int passPercent, int count) {
+        return (int)Math.ceil(1.0 * count * passPercent / 100);
+    }
 
     @Override
     public QuizScore calculate(List<Answer> answers) {
@@ -24,7 +28,7 @@ public class ScoreCalculatorServiceImpl implements ScoreCalculatorService {
         int correctCount = (int) answers.stream()
                 .filter(answer -> answer.getTypedText().equals(answer.getQuestion().getCorrectAnswer()))
                 .count();
-        int passScore = (int) (1.0 * answers.size() * passPercent / 100);
+        int passScore = passScoreByPercent(passPercent, answers.size());
 
         return new QuizScore(totalCount, correctCount, passScore);
     }
